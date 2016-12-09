@@ -8,12 +8,9 @@ $app = new Silex\Application();
 //Config
 $app['debug'] = true;
 
-//Services
-
-$app->register(new Silex\Provider\UrlGeneratorServiceProvider());
-
-$app->register(new Silex\Provider\TwigServiceProvider(), array(
-    'twig.path' => __DIR__.'/../views',
-));
+$app->get('/', function () {
+    return 'Hello world';
+});
 
 $app->run();
+
