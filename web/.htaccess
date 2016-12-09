@@ -1,0 +1,6 @@
+Options -MultiViews
+
+RewriteEngine On
+RewriteBase /projetpedagogique/web
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ index.php [QSA,L]
