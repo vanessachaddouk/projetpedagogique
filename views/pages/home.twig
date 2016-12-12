@@ -1,12 +1,16 @@
 {{include('partials/header.twig')}}
 
-	<div class="container">
+	<div class="container background">
 		<div class="slide"></div>
 		<div class="animated fadeInLeft parallax parallax__top--bg"></div>		
 		<div class="animated fadeInLeft parallax parallax__top--overlay"></div>
-		<div class="animated fadeInDown parallax parallax__middle"></div>
+		<div class="animated fadeInDown parallax parallax__middle hide"></div>
 		<div class="animated fadeInRight parallax parallax__bottom"></div>
 	</div>
+	<div class="container words">
+		<canvas></canvas>
+	</div>
+	<audio class="audio__background" src="{{app.request.basepath}}/src/audio/caravan.mp3" preload="auto" autoplay="autoplay" loop="loop"></audio>
 	
 
 {{include('partials/footer.twig')}}

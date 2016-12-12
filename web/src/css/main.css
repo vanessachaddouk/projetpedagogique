@@ -31,14 +31,13 @@ body{
 **/
 .parallax{
 	width: 200%;
-	height: 35%;
+	height: 100%;
 }
 
 .parallax__top--bg{
 	transform: translateZ(0);
 
 	position: absolute;
-	height: 100%;
 	top:0;
 	left:0;
 	z-index: 10;
@@ -54,7 +53,6 @@ body{
 	transform: translateZ(0);
 
 	position: absolute;
-	height: 100%;
 	top:0;
 	left:0;
 	z-index: 100;
@@ -70,22 +68,30 @@ body{
 	transform: translateZ(0);
 
 	position: absolute;
-	top:30%;
 	right:0;
-	z-index: 50;
-/*	background: url(../img/clouds_overlay.png);
-*/	animation: bgTranslate reverse 24s;
+	z-index: 150;
+	background: url('http://bennet.org/images/codepen/ryu-sprite-demo.png') no-repeat 0 0%;
+
+	background-size: 50%;  
+
+	animation: sprite 3.5s steps(45) infinite;
+	transform: translateX(30%);
 }
 
 .parallax__bottom{
 	transform: translateZ(0);
+	height: 55%;
+
 
 	position: absolute;
 	bottom:0;
 	left:0;
-	z-index: 0;
-/*	background: url(../img/clouds_overlay.png);
-*/	animation: bgTranslate 24s;
+	z-index: 120;
+	background: url(../img/pyramids.png);
+	background-position: bottom;
+
+	animation: bgTranslate 54s linear reverse infinite;
+
 }
 
 @keyframes bgTranslate {
@@ -97,7 +103,13 @@ body{
   }
 }
 
+@keyframes sprite {
+  from { background-position: 0 0%; }
+  to { background-position: 0 100%; }
+}
+
 
 .hide{
 	display:none;
 }
+
