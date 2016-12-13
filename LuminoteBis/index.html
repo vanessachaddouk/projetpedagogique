@@ -11,7 +11,7 @@
         }
     </style>
     <link rel="stylesheet" href="styles.css">
-    <script src="app.js"></script>
+
 </head>
 
 <body>
@@ -34,11 +34,14 @@
 
 
 <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-<script src="/socket.io/socket.io.js"></script>
+<script src="http://188.166.32.147:3200/socket.io/socket.io.js"></script>
 <script>
 
     // Connexion à socket.io
-    var socket = io.connect('http://localhost:8080');
+    var socket = io.connect('http://188.166.32.147:3200');
+    socket.on('connect', function(){
+        console.log("connected\n");
+    });
     var page_require=1;
     //require button new page
     $('.next').on('click',function(){
