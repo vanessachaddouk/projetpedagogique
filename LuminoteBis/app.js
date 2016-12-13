@@ -22,7 +22,7 @@ app.get('/future_club.mp3', function (req, res) {
 });
 
 io.sockets.on('connection', function (socket) {
-
+    console.log('coucou cest lolo');
     MongoClient.connect("mongodb://localhost/rapsodie", function(error, db) {
 
         db.collection("content").find({page:1}).toArray(function (error, results) {
