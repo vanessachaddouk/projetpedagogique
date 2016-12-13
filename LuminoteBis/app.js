@@ -24,8 +24,18 @@ io.sockets.on('connection', function (socket) {
     console.log('coucou');
     socket.on('dispatch',function(action){
         console.log('j\'ai recu ton message charles',action);
-        socket.broadcast.emit('contenu_afficher',action);
-    })
+        switch(){
+            case (action.type=='SEND_IMAGE'):
+                console.log('une image',action.payload);
+                socket.broadcast.emit('contenu_afficher',action.payload);
+                break;
+            case (action.type=='SEND_TEXT'):
+                console.log('un texte',action.payload);
+                socket.broadcast.emit('contenu_afficher',action.payload);
+                break;
+        }
+
+    });
 });
 
 server.listen(3200);
