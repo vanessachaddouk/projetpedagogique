@@ -22,8 +22,10 @@ app.get('/future_club.mp3', function (req, res) {
 
 io.sockets.on('connection', function (socket) {
     console.log('coucou');
-    socket.emit('HEY ON A RECU');
-
+    socket.on('dispatch',function(action){
+        console.log('j\'ai recu ton message charles',action);
+        socket.broadcast.emit('contenu_afficher',action);
+    })
 });
 
 server.listen(3200);
