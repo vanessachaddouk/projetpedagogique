@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Super Chat temps réel !</title>
+    <style>
+        #zone_chat strong {
+            color: white;
+            background-color: black;
+            padding: 2px;
+        }
+    </style>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+<h1>PAGE FRONT</h1>
+<div class="button_container">
+</div>
+<div class="image_container"></div>
+<div class="sound_container">
+    <audio autoplay="autoplay" class="sound_1">
+</audio>
+    <audio autoplay="autoplay" class="sound_2">
+    </audio>
+
+</div>
+<form action="/" method="post" id="formulaire_chat">
+
+    <input type="text" name="message" id="message" placeholder="Votre message..." size="50" autofocus />
+    <input type="submit" id="envoi_message" value="Envoyer" />
+    <audio src="" class="sound_balise" autoplay="autoplay"></audio>
+
+</form>
+
+<section id="zone_chat">
+
+</section>
+
+
+<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+
+
+    // Connexion à socket.io
+    var socket = io.connect('http://localhost:8080');
+
+
+
+
+    socket.on('creation_button',function(creation_button){
+
+        $('.button_container').append("<button id='"+creation_button.object+"'>"+creation_button.description+"</button>");
+        if(creation_button.type=="sound") {
+            $('#'+creation_button.object+'').css ({
+                background : "red",
+            });
+        }
+        else if(creation_button.type=="image") {
+            $('#'+creation_button.object+'').css ({
+                background : "url("+creation_button.contenu[0]+")",
+                backgroundSize : 'cover',
+            });
+        }
+
+            $(".button_container").children().last().on("click", function () {
+                var id = $(this).attr('id');
+
+
+
+                socket.emit('envoi_donnees', id);
+
+            });
+
+    });
+
+
+    socket.on('data_visualisation',function(data_visualisation) {
+
+        if(data_visualisation.type=="sound") {
+            var sound_1 = $('.sound_1');
+            var sound_2 = $('.sound_2');
+            if(sound_1.prop('volume') == 1) {
+                sound_1.animate({volume: 0}, 4000);
+                sound_2.volume=0;
+                $('.sound_2').attr('src',data_visualisation.contenu[0]);
+                sound_2.animate({volume: 1}, 4000);
+
+            }
+            else {
+                sound_2.animate({volume: 0}, 4000);
+                sound_1.volume=0;
+                $('.sound_1').attr('src',data_visualisation.contenu[0]);
+                sound_1.animate({volume: 1}, 4000);
+            }
+
+        }
+        else if(data_visualisation.type=="image"){
+            $('.image_container').fadeOut('1000', function () {
+            $('.image_container').children().remove();
+
+            for(var i=0;i<data_visualisation.contenu.length;i++) {
+
+                $('.image_container').append('<img src="'+data_visualisation.contenu[i]+'" >');
+
+
+
+            };
+            $(this).fadeIn('1000');
+
+            });
+        }
+        else {
+            $('.image_container').fadeOut('1000', function () {
+                $('.image_container').children().remove();
+                var sound_1 = $('.sound_1');
+                var sound_2 = $('.sound_2');
+                if(sound_1.prop('volume') == 1) {
+                    sound_1.animate({volume: 0}, 4000);
+                    sound_2.volume=0;
+                    $('.sound_2').attr('src',data_visualisation.contenu[0]);
+                    sound_2.animate({volume: 1}, 4000);
+
+                }
+                else {
+                    sound_2.animate({volume: 0}, 4000);
+                    sound_1.volume=0;
+                    $('.sound_1').attr('src',data_visualisation.contenu[0]);
+                    sound_1.animate({volume: 1}, 4000);
+                }
+
+                for(var i=1;i<data_visualisation.contenu.length;i++) {
+
+                    $('.image_container').append('<img src="'+data_visualisation.contenu[i]+'" >');
+
+
+
+                };
+                $(this).fadeIn('1000');
+
+
+            });
+
+        }
+
+
+
+
+
+    });
+
+
+
+
+</script>
+</body>
+</html>
