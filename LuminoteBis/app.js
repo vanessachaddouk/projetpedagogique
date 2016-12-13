@@ -1,7 +1,6 @@
 var app = require('express')(),
     server = require('http').createServer(app),
     io = require('socket.io').listen(server),
-    ent = require('ent'), // Permet de bloquer les caractères HTML (sécurité équivalente à htmlentities en PHP)
     fs = require('fs'),
     MongoClient = require("mongodb").MongoClient;
 
@@ -22,8 +21,7 @@ app.get('/future_club.mp3', function (req, res) {
 });
 
 io.sockets.on('connection', function (socket) {
-    console.log('coucou');
-    socket.emit('HEY ON A RECU');
+
     MongoClient.connect("mongodb://localhost/rapsodie", function(error, db) {
 
         db.collection("content").find({page:1}).toArray(function (error, results) {
