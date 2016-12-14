@@ -37,7 +37,7 @@ io.sockets.on('connect', function (socket) {
         };
 
     });
-    socket.on('disconnect',function(){
+    socket.on('disconnect',function(socket){
         console.log('disconnection');
         socket.broadcast.emit('lamp_disconnected');
     })
