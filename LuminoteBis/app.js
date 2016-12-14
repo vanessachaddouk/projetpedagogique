@@ -26,13 +26,21 @@ io.sockets.on('connect', function (socket) {
     socket.on('dispatch',function(action){
         console.log('j\'ai recu ton message charles',action);
         switch(action.type){
-            case 'SEND_IMAGE':
-                console.log('une image',action.payload);
-                socket.broadcast.emit('contenu_afficher',action.payload);
+            case 'SEND_SINGLE_IMAGE':
+                console.log(action.type,action.payload);
+                socket.broadcast.emit(action.type,action.payload);
+                break
+            case 'SEND_MULTIPLE_IMAGES':
+                console.log(action.type,action.payload);
+                socket.broadcast.emit(action.type,action.payload);
                 break;
-            case 'SEND_TEXT':
-                console.log('un texte',action.payload);
-                socket.broadcast.emit('contenu_afficher',action.payload);
+            case 'SEND_GIF':
+                console.log(action.type,action.payload);
+                socket.broadcast.emit(action.type,action.payload);
+                break;
+            case 'SEND_WORD':
+                console.log(action.type,action.payload);
+                socket.broadcast.emit(action.type,action.payload);
                 break;
         };
 
