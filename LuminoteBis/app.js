@@ -24,6 +24,7 @@ io.sockets.on('disconnect',function(socket){
     socket.broadcast.emit('lamp_disconnected');
 });
 io.sockets.on('connection', function (socket) {
+    console.log('connect');
     socket.broadcast.emit('lamp_connected');
     socket.on('dispatch',function(action){
         console.log('j\'ai recu ton message charles',action);
