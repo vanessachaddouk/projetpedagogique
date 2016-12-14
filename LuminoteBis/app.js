@@ -21,7 +21,7 @@ app.get('/future_club.mp3', function (req, res) {
 });
 
 io.sockets.on('connection', function (socket) {
-    socket.broadcast.emit('voisin_connecté');
+    socket.broadcast.emit('lamp_connected');
     socket.on('dispatch',function(action){
         console.log('j\'ai recu ton message charles',action);
         switch(action.type){
