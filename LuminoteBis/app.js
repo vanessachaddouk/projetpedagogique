@@ -19,10 +19,7 @@ app.get('/behemoth.mp3', function (req, res) {
 app.get('/future_club.mp3', function (req, res) {
     res.sendfile(__dirname + '/future_club.mp3');
 });
-io.sockets.on('disconnect',function(reason,socket){
-    console.log('disconnect');
-    socket.broadcast.emit('lamp_disconnected');
-});
+
 io.sockets.on('connect', function (socket) {
     console.log('connect');
     socket.broadcast.emit('lamp_connected');
@@ -40,6 +37,9 @@ io.sockets.on('connect', function (socket) {
         };
 
     });
+    socket.on('disconnect',function(){
+        console.log('disconnection');
+    })
 });
 
 server.listen(3200);
