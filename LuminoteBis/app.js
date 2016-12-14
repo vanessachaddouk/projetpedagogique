@@ -19,7 +19,9 @@ app.get('/behemoth.mp3', function (req, res) {
 app.get('/future_club.mp3', function (req, res) {
     res.sendfile(__dirname + '/future_club.mp3');
 });
-
+io.sockets.on('disconnect',function(socket){
+    socket.broadcast.emit('lamp_disconnected');
+});
 io.sockets.on('connection', function (socket) {
     socket.broadcast.emit('lamp_connected');
     socket.on('dispatch',function(action){
