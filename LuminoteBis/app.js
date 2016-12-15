@@ -31,9 +31,7 @@ io.sockets.on('connect', function (socket) {
             socket.emit('lamp_already_connected');
         }
     })
-    socket.on('REMOVE_CONTENT',function(){
-        socket.broadcast.emit('REMOVE_CONTENT');
-    });
+    
     socket.on('dispatch',function(action){
         console.log('j\'ai recu ton message charles',action);
         socket.broadcast.emit('DISPLAY_CONTENT',action);
