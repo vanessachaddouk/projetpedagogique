@@ -25,7 +25,9 @@ io.sockets.on('connect', function (socket) {
     console.log(connectCounter);
     socket.broadcast.emit('lamp_connected');
     socket.on('already_connected',function(){
+        console.log('demande si lamp déja connecté ?');
         if(connectCounter==2) {
+            console.log('réponse positive');
             socket.emit('lamp_already_connected');
         }
     })
