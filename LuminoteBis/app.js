@@ -19,10 +19,17 @@ app.get('/behemoth.mp3', function (req, res) {
 app.get('/future_club.mp3', function (req, res) {
     res.sendfile(__dirname + '/future_club.mp3');
 });
-
+var connectCounter=0;
 io.sockets.on('connect', function (socket) {
-    console.log('connect');
+    connectCounter++;
+    console.log(connectCounter);
     socket.broadcast.emit('lamp_connected');
+    socket.on('already_connected',function(){
+        if(connectCounter==2) {
+            socket.emit('lamp_already_connected');
+        }
+    })
+
     socket.on('dispatch',function(action){
         console.log('j\'ai recu ton message charles',action);
         switch(action.type){
@@ -46,6 +53,7 @@ io.sockets.on('connect', function (socket) {
 
     });
     socket.on('disconnect',function(){
+        connectCounter--;
         console.log('disconnection');
         socket.broadcast.emit('lamp_disconnected');
     });
